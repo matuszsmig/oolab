@@ -1,5 +1,7 @@
 package agh.ics.oop;
 
+import java.util.Objects;
+
 public class Vector2d {
     final int x;
     final int y;
@@ -70,8 +72,8 @@ public class Vector2d {
             return false;
         Vector2d that = (Vector2d) other;
         // tutaj przeprowadzane jest faktyczne porównanie
-        if (x == that.x && y == that.y)
-            return true;
-        return false;
+        return x == that.x && y == that.y;
     }
+
+    public int hashCode() { return Objects.hash(x,y);}
 }

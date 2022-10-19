@@ -16,19 +16,22 @@ public class MapDirectionTest {
 
     @Test
     void previousWorks(){
+        //given
         MapDirection north = MapDirection.NORTH;
         MapDirection south = MapDirection.SOUTH;
         MapDirection west = MapDirection.WEST;
         MapDirection east = MapDirection.EAST;
 
+        //when
         MapDirection northPrev = north.previous();
         MapDirection southPrev = south.previous();
         MapDirection westPrev = west.previous();
         MapDirection eastPrev = east.previous();
 
-        assertEquals(northPrev, MapDirection.WEST);
-        assertEquals(southPrev, MapDirection.EAST);
-        assertEquals(westPrev, MapDirection.SOUTH);
-        assertEquals(eastPrev, MapDirection.NORTH);
+        //then
+        assertEquals(MapDirection.WEST, northPrev);
+        assertEquals(MapDirection.EAST, southPrev);
+        assertEquals(MapDirection.SOUTH, westPrev);
+        assertEquals(MapDirection.NORTH, eastPrev);
     }
 }
