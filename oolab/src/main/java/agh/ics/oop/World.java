@@ -5,18 +5,10 @@ public class World {
         System.out.println("Start");
         for(Direction direction : directions){
             switch (direction) {
-                case forward:
-                    System.out.println("zwierzak idzie do przodu");
-                    break;
-                case backward:
-                    System.out.println("zwierzak idzie do tyłu");
-                    break;
-                case rightward:
-                    System.out.println("zwierzak skręca w prawo");
-                    break;
-                case leftward:
-                    System.out.println("zwierzak skręca w lewo");
-                    break;
+                case forward -> System.out.println("zwierzak idzie do przodu");
+                case backward -> System.out.println("zwierzak idzie do tyłu");
+                case rightward -> System.out.println("zwierzak skręca w prawo");
+                case leftward -> System.out.println("zwierzak skręca w lewo");
             }
         }
         System.out.println("Stop");
@@ -25,18 +17,10 @@ public class World {
     public static void convert(String[] elements, Direction[] newElements){
         for(int i = 0; i < elements.length; i++){
             switch (elements[i]) {
-                case "f":
-                    newElements[i] = Direction.forward;
-                    break;
-                case "b":
-                    newElements[i] = Direction.backward;
-                    break;
-                case "r":
-                    newElements[i] = Direction.rightward;
-                    break;
-                case "l":
-                    newElements[i] = Direction.leftward;
-                    break;
+                case "f" -> newElements[i] = Direction.forward;
+                case "b" -> newElements[i] = Direction.backward;
+                case "r" -> newElements[i] = Direction.rightward;
+                case "l" -> newElements[i] = Direction.leftward;
             }
         }
 
@@ -56,8 +40,27 @@ public class World {
         //System.out.println(position2);
         //System.out.println(position1.add(position2));
 
+        Animal mouse = new Animal();
+        mouse.move(MoveDirection.RIGHT);
+        mouse.move(MoveDirection.FORWARD);
+        mouse.move(MoveDirection.FORWARD);
+        mouse.move(MoveDirection.FORWARD);
+        System.out.println(mouse.toString());
+        System.out.println();
+
+
         Animal animal = new Animal();
-        System.out.println(animal.getPosition());
+        MoveDirection[] directions = new OptionsParser().parse(args);
+
+        for (MoveDirection direction : directions) {
+            animal.move(direction);
+            System.out.println(animal.toString());
+        }
+        //mechanizm, który wyklucza pojawienie się dwóch zwierząt w tym samym miejscu, można zaimplementować
+        //wykonując operacje w kolejności: pobranie pozycji obu zwierząt -> wywołanie metody isAT(), porównjącej
+        //pozyję zwierzaka1 z odpowiednio wywyołanym ruchem, oraz pozycję zwierzak2 z odpowiednio wywyołanym ruchem
+        //-> jeżeli zwróci false możemy wykonać ruch, w przeciwnym wypadku nie możemy (zakładamy że pozycje startowe
+        //się róznią)
 
     }
 

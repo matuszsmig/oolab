@@ -62,7 +62,7 @@ public class Vector2d {
     }
 
     public Vector2d opposite(){
-        return new Vector2d(y,x);
+        return new Vector2d(-x,-y);
     }
 
     public boolean equals(Object other){
