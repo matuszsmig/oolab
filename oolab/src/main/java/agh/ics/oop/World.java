@@ -40,27 +40,35 @@ public class World {
         //System.out.println(position2);
         //System.out.println(position1.add(position2));
 
-        Animal mouse = new Animal();
-        mouse.move(MoveDirection.RIGHT);
-        mouse.move(MoveDirection.FORWARD);
-        mouse.move(MoveDirection.FORWARD);
-        mouse.move(MoveDirection.FORWARD);
-        System.out.println(mouse.toString());
-        System.out.println();
+       //Animal mouse = new Animal();
+       //mouse.move(MoveDirection.RIGHT);
+       //mouse.move(MoveDirection.FORWARD);
+       //mouse.move(MoveDirection.FORWARD);
+       //mouse.move(MoveDirection.FORWARD);
+       //System.out.println(mouse.toString());
+       //System.out.println();
 
 
-        Animal animal = new Animal();
-        MoveDirection[] directions = new OptionsParser().parse(args);
+       //Animal animal = new Animal();
+       //MoveDirection[] directions = new OptionsParser().parse(args);
 
-        for (MoveDirection direction : directions) {
-            animal.move(direction);
-            System.out.println(animal.toString());
-        }
+       //for (MoveDirection direction : directions) {
+       //    animal.move(direction);
+       //    System.out.println(animal.toString());
+       //}
+
+
         //mechanizm, który wyklucza pojawienie się dwóch zwierząt w tym samym miejscu, można zaimplementować
         //wykonując operacje w kolejności: pobranie pozycji obu zwierząt -> wywołanie metody isAT(), porównjącej
         //pozyję zwierzaka1 z odpowiednio wywyołanym ruchem, oraz pozycję zwierzak2 z odpowiednio wywyołanym ruchem
         //-> jeżeli zwróci false możemy wykonać ruch, w przeciwnym wypadku nie możemy (zakładamy że pozycje startowe
         //się róznią)
+
+        MoveDirection[] directions = new OptionsParser().parse(args);
+        IWorldMap map = new RectangularMap(10, 5);
+        Vector2d[] positions = { new Vector2d(2,2), new Vector2d(3,4) };
+        IEngine engine = new SimulationEngine(directions, map, positions);
+        engine.run();
 
     }
 

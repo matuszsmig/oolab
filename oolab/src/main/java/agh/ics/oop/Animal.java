@@ -1,9 +1,27 @@
 package agh.ics.oop;
 
+import java.util.Objects;
+
+import static agh.ics.oop.MapDirection.*;
+
 public class Animal {
 
-    private MapDirection orientation = MapDirection.NORTH;
-    private Vector2d position = new Vector2d(2,2);
+    private MapDirection orientation;
+    private Vector2d position;
+    static IWorldMap map;
+
+    public Animal(IWorldMap map)
+    {
+        Animal.map = map;
+        this.orientation = MapDirection.NORTH;
+    }
+
+    public Animal(IWorldMap map, Vector2d initialPosition){
+        this.orientation = NORTH;
+        this.position = initialPosition;
+        Animal.map = map;
+    }
+
 
     public MapDirection getOrientation() {
         return orientation;
@@ -15,7 +33,12 @@ public class Animal {
 
     @Override
     public String toString() {
-        return "orientation=" + orientation + ", position=" + position;
+        return switch (this.orientation){
+            case EAST -> "E";
+            case WEST -> "W";
+            case NORTH -> "N";
+            case SOUTH -> "S";
+        };
     }
 
     public boolean isAt(Vector2d position){
@@ -31,57 +54,20 @@ public class Animal {
     }
 
     public void move(MoveDirection direction){
+        Vector2d newPosition = position;
         switch (direction){
-            case RIGHT -> setOrientation(orientation.next());
-            case LEFT -> setOrientation(orientation.previous());
-            case FORWARD -> {
-                switch (orientation){
-                    case NORTH -> {
-                        if (getPosition().add(new Vector2d(0,1)).precedes(new Vector2d(4,4))){
-                            setPosition(position.add(new Vector2d(0,1)));}
-                    }
-                    case SOUTH ->{
-                        if (getPosition().add(new Vector2d(0,-1)).follows(new Vector2d(0,0))){
-                            setPosition(position.add(new Vector2d(0,-1)));
-                        }
-                    }
-                    case EAST -> {
-                        if (getPosition().add(new Vector2d(1,0)).precedes(new Vector2d(4,4))){
-                            setPosition(position.add(new Vector2d(1,0)));
-                        }
-                    }
-                    case WEST -> {
-                        if (getPosition().add(new Vector2d(-1,0)).follows(new Vector2d(0,0))){
-                            setPosition(position.add(new Vector2d(-1,0)));
-                        }
-                    }
-                }
-            }
-            case BACKWARD -> {
-                switch (orientation){
-                    case NORTH -> {
-                        if (getPosition().add(new Vector2d(0,-1)).follows(new Vector2d(0,0))){
-                            setPosition(position.add(new Vector2d(0,-1)));
-                        }
-                    }
-                    case SOUTH -> {
-                        if (getPosition().add(new Vector2d(0,1)).precedes(new Vector2d(4,4))){
-                            setPosition(position.add(new Vector2d(0,1)));}
-                    }
-                    case EAST -> {
-                        if (getPosition().add(new Vector2d(-1,0)).follows(new Vector2d(0,0))){
-                            setPosition(position.add(new Vector2d(-1,0)));
-                        }
-                    }
-                    case WEST -> {
-                        if (getPosition().add(new Vector2d(1,0)).precedes(new Vector2d(4,4))){
-                            setPosition(position.add(new Vector2d(1,0)));
-                        }
-                    }
-                }
-            }
+            case FORWARD -> newPosition = position.add(Objects.requireNonNull(this.orientation.toUnitVector()));
+            case BACKWARD -> newPosition = position.subtract(Objects.requireNonNull(this.orientation.toUnitVector()));
+            case RIGHT -> this.orientation = this.orientation.next();
+            case LEFT -> this.orientation = this.orientation.previous();
+        }
+
+        if (map.canMoveTo(newPosition)){
+            position = newPosition;
+            map.place(this);
         }
     }
 
 
 }
+
