@@ -54,18 +54,23 @@ public class Animal {
     }
 
     public void move(MoveDirection direction){
-        Vector2d newPosition = position;
         switch (direction){
-            case FORWARD -> newPosition = position.add(Objects.requireNonNull(this.orientation.toUnitVector()));
-            case BACKWARD -> newPosition = position.subtract(Objects.requireNonNull(this.orientation.toUnitVector()));
             case RIGHT -> this.orientation = this.orientation.next();
             case LEFT -> this.orientation = this.orientation.previous();
+            case FORWARD -> {
+                Vector2d  vector1 = this.position.add(Objects.requireNonNull(this.orientation.toUnitVector()));
+                if (map.canMoveTo(vector1) && !map.isOccupied(vector1)){
+                    this.position=vector1;
+                }
+            }
+            case BACKWARD -> {
+                Vector2d  vector1 = this.position.add(Objects.requireNonNull(this.orientation.toUnitVector()).opposite());
+                if (map.canMoveTo(vector1) && !map.isOccupied(vector1)){
+                    this.position=vector1;
+                }
+            }
         }
 
-        if (map.canMoveTo(newPosition)){
-            position = newPosition;
-            map.place(this);
-        }
     }
 
 
