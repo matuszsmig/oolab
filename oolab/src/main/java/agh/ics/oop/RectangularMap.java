@@ -4,8 +4,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class RectangularMap implements IWorldMap {
-    private final List<Animal> animals = new ArrayList<>();
+public class RectangularMap extends AbstractWorldMap {
     private final Vector2d bottomLeft;
     private final Vector2d topRight;
 
@@ -28,7 +27,6 @@ public class RectangularMap implements IWorldMap {
         } return false;
 
     }
-
     @Override
     public boolean isOccupied(Vector2d position) {
         return this.objectAt(position) != null;
@@ -44,9 +42,11 @@ public class RectangularMap implements IWorldMap {
        return null;
     }
 
-    @Override
-    public String toString() {
-        MapVisualizer mapVisualizer=new MapVisualizer(this);
-        return mapVisualizer.draw(bottomLeft, topRight);
+    public Vector2d findLeftBottomCorner() {
+        return this.bottomLeft;
     }
+    public Vector2d findRightTopCorner() {
+        return bottomLeft;
+    }
+
 }
