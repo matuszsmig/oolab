@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class GrassField extends AbstractWorldMap{
     private final int numberOfGrasses;
-    protected List<Grass> grasses = new ArrayList<>();
+    protected HashMap<Vector2d, Grass> grasses = new HashMap<Vector2d, Grass>();
     public GrassField(int numberOfGrasses) {
         this.numberOfGrasses = numberOfGrasses;
         placeGrass(this.numberOfGrasses);
@@ -25,20 +25,21 @@ public class GrassField extends AbstractWorldMap{
             int randomIndex = number.nextInt(grassPositions.size());
             Vector2d grassPosition = grassPositions.get(randomIndex);
             if (objectAt(grassPosition) == null && !isOccupied((grassPosition))) {
-                grasses.add(new Grass(grassPosition));
+                grasses.put(grassPosition ,new Grass(grassPosition));
             }
         }
     }
 
+
     @Override
     public Object objectAt(Vector2d position) {
-        for (Animal zwierzatko : animals) {
-            if (zwierzatko.isAt(position)){
-                return zwierzatko;
+        for (Vector2d animalPos : animals.keySet()) {
+            if (animalPos.equals(position)){
+                return animalPos;
             }
         }
-        for (Grass kepka : grasses) {
-            if (kepka.getPosition().equals(position)){
+        for (Vector2d kepka : grasses.keySet()) {
+            if (kepka.equals(position)){
                 return kepka;
             }
         }
@@ -47,8 +48,8 @@ public class GrassField extends AbstractWorldMap{
 
     @Override
     public boolean canMoveTo(Vector2d position) {
-        for (Animal zwierzatko : animals){
-            if (zwierzatko.isAt(position)){
+        for (Vector2d animalPos : animals.keySet()){
+            if (animalPos.equals(position)){
                 return false;
             }
         }
@@ -57,21 +58,21 @@ public class GrassField extends AbstractWorldMap{
 
     public Vector2d findRightTopCorner() {
         Vector2d upperRight = new Vector2d(Integer.MIN_VALUE, Integer.MIN_VALUE);
-        for (Grass kepka : grasses){
-            upperRight = kepka.getPosition().upperRight(upperRight);
+        for (Vector2d kepka : grasses.keySet()){
+            upperRight = kepka.upperRight(upperRight);
         }
-        for (Animal zwierzatko: animals){
-            upperRight = zwierzatko.getPosition().upperRight(upperRight);
+        for (Vector2d animalPos : animals.keySet()){
+            upperRight = animalPos.upperRight(upperRight);
         }
         return upperRight;
     }
     public Vector2d findLeftBottomCorner() {
         Vector2d lowerLeft = new Vector2d(Integer.MAX_VALUE, Integer.MAX_VALUE);
-        for (Grass kepka : grasses){
-            lowerLeft = kepka.getPosition().lowerLeft(lowerLeft);
+        for (Vector2d kepka : grasses.keySet()){
+            lowerLeft = kepka.lowerLeft(lowerLeft);
         }
-        for (Animal zwierzatko: animals){
-            lowerLeft = zwierzatko.getPosition().lowerLeft(lowerLeft);
+        for (Vector2d animalPos : animals.keySet()){
+            lowerLeft = animalPos.lowerLeft(lowerLeft);
         }
         return lowerLeft;
     }

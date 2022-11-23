@@ -21,22 +21,13 @@ public class RectangularMap extends AbstractWorldMap {
     @Override
     public boolean place(Animal animal) {
         if (!this.isOccupied(animal.getPosition()) && this.canMoveTo(animal.getPosition())){
-            animals.add(animal);
+            animals.put(animal.getPosition(), animal);
             return true;
 
         } return false;
 
     }
 
-    @Override
-    public Object objectAt(Vector2d position) {
-       for (Animal zwierzatko : animals) {
-           if (zwierzatko.getPosition().equals(position)){
-               return zwierzatko;
-           }
-       }
-       return null;
-    }
 
     public Vector2d findLeftBottomCorner() {
         return this.bottomLeft;
