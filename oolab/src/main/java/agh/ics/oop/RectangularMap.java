@@ -27,10 +27,6 @@ public class RectangularMap extends AbstractWorldMap {
         } return false;
 
     }
-    @Override
-    public boolean isOccupied(Vector2d position) {
-        return this.objectAt(position) != null;
-    }
 
     @Override
     public Object objectAt(Vector2d position) {

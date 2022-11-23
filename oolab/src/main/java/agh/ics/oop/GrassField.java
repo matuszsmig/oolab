@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 public class GrassField extends AbstractWorldMap{
     private final int numberOfGrasses;
+    protected List<Grass> grasses = new ArrayList<>();
     public GrassField(int numberOfGrasses) {
         this.numberOfGrasses = numberOfGrasses;
         placeGrass(this.numberOfGrasses);
@@ -20,37 +21,13 @@ public class GrassField extends AbstractWorldMap{
         }
 
         Random number = new Random();
-        for (int i = 0; i < numOfGrass; ++i) {
+        while (numberOfGrasses-1 >= grasses.size()) {
             int randomIndex = number.nextInt(grassPositions.size());
             Vector2d grassPosition = grassPositions.get(randomIndex);
-            if (!isOccupied(grassPosition)) {
+            if (objectAt(grassPosition) == null && !isOccupied((grassPosition))) {
                 grasses.add(new Grass(grassPosition));
             }
         }
-    }
-
-
-    @Override
-    public boolean canMoveTo(Vector2d position) {
-        for (Animal zwierzatko : animals){
-            if (zwierzatko.isAt(position)){
-                return false;
-            }
-        }
-        return true;
-    }
-
-    @Override
-    public boolean place(Animal animal) {
-        if (!this.isOccupied(animal.getPosition()) && this.canMoveTo(animal.getPosition())){
-            animals.add(animal);
-            return true;
-        } return false;
-    }
-
-    @Override
-    public boolean isOccupied(Vector2d position) {
-        return this.objectAt(position) != null;
     }
 
     @Override
@@ -66,6 +43,16 @@ public class GrassField extends AbstractWorldMap{
             }
         }
         return null;
+    }
+
+    @Override
+    public boolean canMoveTo(Vector2d position) {
+        for (Animal zwierzatko : animals){
+            if (zwierzatko.isAt(position)){
+                return false;
+            }
+        }
+        return true;
     }
 
     public Vector2d findRightTopCorner() {

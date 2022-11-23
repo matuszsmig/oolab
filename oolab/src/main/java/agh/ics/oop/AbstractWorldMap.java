@@ -6,7 +6,6 @@ import java.util.List;
 public abstract class AbstractWorldMap implements IWorldMap{
 
     protected List<Animal> animals = new ArrayList<>();
-    protected List<Grass> grasses = new ArrayList<>();
 
 
     @Override
@@ -29,11 +28,6 @@ public abstract class AbstractWorldMap implements IWorldMap{
         for (Animal zwierzatko : animals) {
             if (zwierzatko.isAt(position)){
                 return zwierzatko;
-            }
-        }
-        for (Grass kepka : grasses) {
-            if (kepka.getPosition().equals(position)){
-                return kepka;
             }
         }
         return null;
