@@ -35,12 +35,12 @@ public class GrassField extends AbstractWorldMap{
     public Object objectAt(Vector2d position) {
         for (Vector2d animalPos : animals.keySet()) {
             if (animalPos.equals(position)){
-                return animalPos;
+                return animals.get(animalPos);
             }
         }
         for (Vector2d kepka : grasses.keySet()) {
             if (kepka.equals(position)){
-                return kepka;
+                return grasses.get(kepka);
             }
         }
         return null;

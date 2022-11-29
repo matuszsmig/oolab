@@ -32,7 +32,7 @@ public abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObse
     public Object objectAt(Vector2d position) {
         for (Vector2d animalPos : animals.keySet()) {
             if (animalPos.equals(position)){
-                return animalPos;
+                return animals.get(animalPos);
             }
         }
         return null;
