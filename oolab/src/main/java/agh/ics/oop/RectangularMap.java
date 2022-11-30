@@ -2,9 +2,9 @@ package agh.ics.oop;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Objects;
 
-public class RectangularMap implements IWorldMap {
-    private final List<Animal> animals = new ArrayList<>();
+public class RectangularMap extends AbstractWorldMap {
     private final Vector2d bottomLeft;
     private final Vector2d topRight;
 
@@ -27,30 +27,26 @@ public class RectangularMap implements IWorldMap {
         } return false;
 
     }
-
     @Override
     public boolean isOccupied(Vector2d position) {
-        for (Animal zwierzatko : animals) {
-            if (zwierzatko.getPosition().equals(position)){
-                return true;
-            }
-        }
-        return false;
+        return this.objectAt(position) != null;
     }
 
     @Override
     public Object objectAt(Vector2d position) {
-        for (Animal zwierzatko : animals) {
-            if (zwierzatko.getPosition().equals(position)){
-                return zwierzatko;
-            }
-        }
-        return null;
+       for (Animal zwierzatko : animals) {
+           if (zwierzatko.getPosition().equals(position)){
+               return zwierzatko;
+           }
+       }
+       return null;
     }
 
-    @Override
-    public String toString() {
-        MapVisualizer mapVisualizer=new MapVisualizer(this);
-        return mapVisualizer.draw(bottomLeft, topRight);
+    public Vector2d findLeftBottomCorner() {
+        return this.bottomLeft;
     }
+    public Vector2d findRightTopCorner() {
+        return bottomLeft;
+    }
+
 }

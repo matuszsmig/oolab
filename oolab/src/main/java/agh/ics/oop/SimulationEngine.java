@@ -3,9 +3,9 @@ package agh.ics.oop;
 import java.util.List;
 import java.util.ArrayList;
 public class SimulationEngine implements IEngine{
-    public MoveDirection[] directions;
-    public IWorldMap map;
-    public Vector2d[] positions;
+    private final MoveDirection[] directions;
+    private final IWorldMap map;
+    private final Vector2d[] positions;
     private final List<Animal> animals = new ArrayList<>();
     public SimulationEngine (MoveDirection[] directions, IWorldMap map, Vector2d[] positions){
         this.directions = directions;

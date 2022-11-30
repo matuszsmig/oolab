@@ -4,7 +4,7 @@ import java.util.Objects;
 
 import static agh.ics.oop.MapDirection.*;
 
-public class Animal {
+public class Animal implements IMapElement{
 
     private MapDirection orientation;
     private Vector2d position;
@@ -75,4 +75,3 @@ public class Animal {
 
 
 }
-
