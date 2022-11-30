@@ -10,17 +10,21 @@ public abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObse
 
     @Override
     public void positionChanged(Vector2d oldPosition, Vector2d newPosition){
-        animals.put(newPosition, animals.get(oldPosition));
-        animals.remove(oldPosition);
+        Animal animal = animals.remove(oldPosition);
+        if (animal!= null) {
+            animals.put(newPosition, animal);
+        }
     }
 
     @Override
     public boolean place(Animal animal) {
         if (!this.isOccupied(animal.getPosition()) && this.canMoveTo(animal.getPosition())){
             animals.put(animal.getPosition(), animal);
+            animal.addObserver(this);
             return true;
-        } return false;
-
+        }
+        new IllegalArgumentException(animal.getPosition() + " avaliable for this animal");
+        return false;
     }
 
     @Override
@@ -30,12 +34,7 @@ public abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObse
 
     @Override
     public Object objectAt(Vector2d position) {
-        for (Vector2d animalPos : animals.keySet()) {
-            if (animalPos.equals(position)){
-                return animals.get(animalPos);
-            }
-        }
-        return null;
+        return animals.get(position);
     }
     public abstract Vector2d findLeftBottomCorner();
     public abstract Vector2d findRightTopCorner();

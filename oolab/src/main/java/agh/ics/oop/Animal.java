@@ -14,19 +14,6 @@ public class Animal implements IMapElement{
 
     private List<IPositionChangeObserver> observers = new ArrayList<>();
 
-    void addObserver(IPositionChangeObserver observer){
-        observers.add(observer);
-    }
-
-    void removeObserver(IPositionChangeObserver observer){
-        observers.remove(observer);
-    }
-
-    void positionChanged(Vector2d oldPosition, Vector2d newPosition){
-        for (IPositionChangeObserver observer: observers){
-            observer.positionChanged(oldPosition, newPosition);
-        }
-    }
 
     public Animal(IWorldMap map)
     {
@@ -38,7 +25,24 @@ public class Animal implements IMapElement{
         this.orientation = NORTH;
         this.position = initialPosition;
         Animal.map = map;
+
+        addObserver(map);
     }
+
+    public void addObserver(IPositionChangeObserver observer){
+        observers.add(observer);
+    }
+
+    public void removeObserver(IPositionChangeObserver observer){
+        observers.remove(observer);
+    }
+
+    private void positionChanged(Vector2d oldPosition, Vector2d newPosition){
+        for (IPositionChangeObserver observer: observers){
+            observer.positionChanged(oldPosition, newPosition);
+        }
+    }
+
 
 
     public MapDirection getOrientation() {
@@ -79,13 +83,19 @@ public class Animal implements IMapElement{
             case FORWARD -> {
                 Vector2d  vector1 = this.position.add(Objects.requireNonNull(this.orientation.toUnitVector()));
                 if (map.canMoveTo(vector1) && !map.isOccupied(vector1)){
+                    var oldPosition = position;
                     this.position=vector1;
+
+                    positionChanged(oldPosition,position);
                 }
             }
             case BACKWARD -> {
                 Vector2d  vector1 = this.position.add(Objects.requireNonNull(this.orientation.toUnitVector()).opposite());
                 if (map.canMoveTo(vector1) && !map.isOccupied(vector1)){
+                    var oldPosition = position;
                     this.position=vector1;
+
+                    positionChanged(oldPosition,position);
                 }
             }
         }

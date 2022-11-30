@@ -12,7 +12,10 @@ public class OptionsParser {
                 case "b", "backward" -> newElements[i-outOfMoveDirection] = MoveDirection.BACKWARD;
                 case "r", "right" -> newElements[i-outOfMoveDirection] = MoveDirection.RIGHT;
                 case "l", "left" -> newElements[i-outOfMoveDirection] = MoveDirection.LEFT;
-                default -> outOfMoveDirection+=1;
+                default -> {
+                    outOfMoveDirection+=1;
+                    new IllegalArgumentException(args[i] + " is not legal move specification");
+                }
             }
         }
         MoveDirection[] directions = new MoveDirection[size-outOfMoveDirection];
