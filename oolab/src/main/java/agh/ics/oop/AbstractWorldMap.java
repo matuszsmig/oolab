@@ -23,8 +23,8 @@ public abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObse
             animal.addObserver(this);
             return true;
         }
-        new IllegalArgumentException(animal.getPosition() + " avaliable for this animal");
-        return false;
+        throw new IllegalArgumentException(animal.getPosition() + " avaliable for this animal");
+
     }
 
     @Override

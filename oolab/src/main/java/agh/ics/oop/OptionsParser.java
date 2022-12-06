@@ -14,7 +14,7 @@ public class OptionsParser {
                 case "l", "left" -> newElements[i-outOfMoveDirection] = MoveDirection.LEFT;
                 default -> {
                     outOfMoveDirection+=1;
-                    new IllegalArgumentException(args[i] + " is not legal move specification");
+                    throw new IllegalArgumentException(args[i] + " is not legal move specification");
                 }
             }
         }

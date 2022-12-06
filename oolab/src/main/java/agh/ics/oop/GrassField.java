@@ -27,7 +27,7 @@ public class GrassField extends AbstractWorldMap{
             if (objectAt(grassPosition) == null && !isOccupied((grassPosition))) {
                 grasses.put(grassPosition ,new Grass(grassPosition));
             }   else {
-                new IllegalArgumentException(grassPosition + " avaliable for this grass");
+                throw new IllegalArgumentException(grassPosition + " avaliable for this grass");
             }
         }
     }
