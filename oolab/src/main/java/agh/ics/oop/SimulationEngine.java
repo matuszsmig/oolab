@@ -2,7 +2,7 @@ package agh.ics.oop;
 
 import java.util.List;
 import java.util.ArrayList;
-public class SimulationEngine implements IEngine{
+public class SimulationEngine implements IEngine, Runnable {
     private final MoveDirection[] directions;
     private final IWorldMap map;
     private final Vector2d[] positions;
@@ -23,7 +23,14 @@ public class SimulationEngine implements IEngine{
     public void run() {
         int numOfAnimals = animals.size();
         for (int i=0;i<directions.length;i++){
+            try {
+                Thread.sleep(3000);
+            } catch (InterruptedException e) {
+                System.out.println("Wątek przerwany ");
+            }
+
             animals.get(i%numOfAnimals).move(directions[i]);
+
         }
     }
 

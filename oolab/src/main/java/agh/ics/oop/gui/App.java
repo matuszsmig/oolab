@@ -23,7 +23,8 @@ public class App extends Application{
             map = new GrassField(10);
             Vector2d[] positions = { new Vector2d(2,2), new Vector2d(3,4) };
             IEngine engine = new SimulationEngine(directions, map, positions);
-            engine.run();
+            Thread engineThread = new Thread((Runnable) engine);
+            engineThread.run();
         }
         catch (IllegalArgumentException e){
             System.out.println(e.getMessage());
