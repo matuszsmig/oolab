@@ -53,6 +53,16 @@ public class Animal implements IMapElement{
         return position;
     }
 
+    @Override
+    public String getImagePath() {
+        return toString();
+    }
+
+    @Override
+    public String getDesc() {
+        return position.toString();
+    }
+
 
     @Override
     public String toString() {
