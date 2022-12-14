@@ -8,15 +8,15 @@ class SimulationEngineTest {
 
     @Test
     void simpleTest() {
-        String[] moves = {"f", "r", "l", "r", "f","f", "b", "l"};
+        String[] moves = {"f", "r", "l", "r", "f","f", "l"};
         MoveDirection[] directions = new OptionsParser().parse(moves);
         IWorldMap map = new RectangularMap(7,3);
         Vector2d[] positions = { new Vector2d(0,0), new Vector2d(3,3), new Vector2d(3,1) };
         IEngine engine = new SimulationEngine(directions, map, positions);
         engine.run();
-        assertFalse(map.isOccupied(new Vector2d(0,1)));
+        assertTrue(map.isOccupied(new Vector2d(0,1)));
         assertFalse(map.isOccupied(new Vector2d(4,2)));
-        assertFalse(map.isOccupied(new Vector2d(4,3)));
+        assertTrue(map.isOccupied(new Vector2d(4,3)));
     }
 
     @Test

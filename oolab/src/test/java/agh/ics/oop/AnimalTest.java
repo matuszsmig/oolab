@@ -71,9 +71,9 @@ class AnimalTest {
     @Test
     void parserWorksCorrectly(){
         //given
-        String[] moves1 = {"f","forward", "right", "light", "left"};
+        String[] moves1 = {"f","forward", "right", "right", "left"};
         String[] moves2 = {"f","forward", "right", "f", "r"};
-        MoveDirection[] directionsMoves1 = {MoveDirection.FORWARD,MoveDirection.FORWARD,MoveDirection.RIGHT,MoveDirection.LEFT};
+        MoveDirection[] directionsMoves1 = {MoveDirection.FORWARD,MoveDirection.FORWARD,MoveDirection.RIGHT,MoveDirection.RIGHT,MoveDirection.LEFT};
         MoveDirection[] directionsMoves2 = {MoveDirection.FORWARD,MoveDirection.FORWARD,MoveDirection.RIGHT,MoveDirection.FORWARD,MoveDirection.RIGHT};
 
         //when

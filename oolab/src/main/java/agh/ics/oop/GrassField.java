@@ -26,6 +26,8 @@ public class GrassField extends AbstractWorldMap{
             Vector2d grassPosition = grassPositions.get(randomIndex);
             if (objectAt(grassPosition) == null && !isOccupied((grassPosition))) {
                 grasses.put(grassPosition ,new Grass(grassPosition));
+            }   else {
+                throw new IllegalArgumentException(grassPosition + " avaliable for this grass");
             }
         }
     }
@@ -33,17 +35,11 @@ public class GrassField extends AbstractWorldMap{
 
     @Override
     public Object objectAt(Vector2d position) {
-        for (Vector2d animalPos : animals.keySet()) {
-            if (animalPos.equals(position)){
-                return animals.get(animalPos);
-            }
+        Object foundObject = super.objectAt(position);
+        if (foundObject==null){
+            return grasses.get(position);
         }
-        for (Vector2d kepka : grasses.keySet()) {
-            if (kepka.equals(position)){
-                return grasses.get(kepka);
-            }
-        }
-        return null;
+        return foundObject;
     }
 
     @Override
