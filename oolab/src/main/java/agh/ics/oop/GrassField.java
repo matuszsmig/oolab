@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 public class GrassField extends AbstractWorldMap{
     private final int numberOfGrasses;
+
     protected HashMap<Vector2d, Grass> grasses = new HashMap<Vector2d, Grass>();
     public GrassField(int numberOfGrasses) {
         this.numberOfGrasses = numberOfGrasses;

@@ -11,9 +11,15 @@ public class Grass implements IMapElement{
     public Vector2d getPosition(){
         return position;
     }
-
     @Override
     public String toString() {
         return "*";
+    }
+
+    public String getImagePath(){
+        return "grass";
+    }
+    public String getDesc(){
+        return "Trawa";
     }
 }
